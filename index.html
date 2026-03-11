@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolador de Dados FATE - com Esperança & Medo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-section {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .skill-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .skill-input-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .skill-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .skill-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .skill-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-value label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .skill-bonus {
+            width: 80px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .skill-bonus:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dice-section {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .die {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .die.plus {
+            background: linear-gradient(135deg, #48c774, #00d1b2);
+            color: white;
+        }
+
+        .die.minus {
+            background: linear-gradient(135deg, #f14668, #ff3860);
+            color: white;
+        }
+
+        .die.blank {
+            background: linear-gradient(135deg, #b0b0b0, #7a7a7a);
+            color: white;
+        }
+
+        .die.rolling {
+            animation: roll 0.5s ease-in-out;
+        }
+
+        @keyframes roll {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #48c774, #00d1b2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(72, 199, 116, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72, 199, 116, 0.6);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #f14668, #ff3860);
+            color: white;
+            box-shadow: 0 5px 15px rgba(241, 70, 104, 0.4);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(241, 70, 104, 0.6);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .result-dice {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .result-final {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-label {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 15px;
+        }
+
+        .result-description {
+            font-size: 1.1em;
+            margin-top: 15px;
+            opacity: 0.9;
+        }
+
+        .hope-fear-section {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .hope-box, .fear-box {
+            text-align: center;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .hope-box {
+            background: linear-gradient(135deg, #48c774, #00d1b2);
+            color: white;
+        }
+
+        .fear-box {
+            background: linear-gradient(135deg, #f14668, #ff3860);
+            color: white;
+        }
+
+        .hope-value, .fear-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .hope-label, .fear-label {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hope-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 <span>Rolador FATE</span> 🎲</h1>
+        
+        <div class="skill-section">
+            <label class="skill-label">⚡ Perícia / Bônus:</label>
+            <div class="skill-input-container">
+                <input type="text" class="skill-input" id="skillName" placeholder="Nome da Perícia (ex: Lutar, Enganar)" value="Perícia">
+                <div class="skill-value">
+                    <label>+</label>
+                    <input type="number" class="skill-bonus" id="skillBonus" value="0" min="-5" max="10">
+                </div>
+            </div>
+        </div>
+
+        <div class="dice-section">
+            <div class="dice-container" id="diceContainer">
+                <div class="die blank" id="die1">0</div>
+                <div class="die blank" id="die2">0</div>
+                <div class="die blank" id="die3">0</div>
+                <div class="die blank" id="die4">0</div>
+            </div>
+
+            <div class="button-container">
+                <button class="btn btn-primary" id="rollBtn">🎲 Rolar Dados</button>
+                <button class="btn btn-secondary" id="rollWithBonusBtn">✨ Rolar com Bônus</button>
+                <button class="btn btn-reset" id="resetBtn">↺ Reset</button>
+            </div>
+        </div>
+
+        <!-- Nova seção de Esperança e Medo -->
+        <div class="hope-fear-section">
+            <div class="hope-box">
+                <div class="hope-label">ESPERANÇA</div>
+                <div class="hope-value" id="hopeValue">0</div>
+            </div>
+            <div style="font-size: 2em; color: #555;">⚔️</div>
+            <div class="fear-box">
+                <div class="fear-label">MEDO</div>
+                <div class="fear-value" id="fearValue">0</div>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-dice" id="resultDice">Clique em Rolar para começar!</div>
+            <div class="result-final" id="resultFinal">0</div>
+            <div class="result-label" id="resultLabel">⚪ Neutro</div>
+            <div class="result-description" id="resultDescription">Aguardando sua rolagem...</div>
+            <div class="hope-message" id="hopeMessage"></div>
+        </div>
+        
+        <div class="footer">
+            Fate Core System • 4 dados FATE (Fudge Dice) • Sistema de Esperança & Medo
+        </div>
+    </div>
+
+    <script>
+        // Elementos do DOM
+        const diceElements = [
+            document.getElementById('die1'),
+            document.getElementById('die2'),
+            document.getElementById('die3'),
+            document.getElementById('die4')
+        ];
+        
+        const skillNameInput = document.getElementById('skillName');
+        const skillBonusInput = document.getElementById('skillBonus');
+        const rollBtn = document.getElementById('rollBtn');
+        const rollWithBonusBtn = document.getElementById('rollWithBonusBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const resultDice = document.getElementById('resultDice');
+        const resultFinal = document.getElementById('resultFinal');
+        const resultLabel = document.getElementById('resultLabel');
+        const resultDescription = document.getElementById('resultDescription');
+        const hopeValue = document.getElementById('hopeValue');
+        const fearValue = document.getElementById('fearValue');
+        const hopeMessage = document.getElementById('hopeMessage');
+
+        // Variáveis para armazenar os pontos
+        let hopePoints = 0;
+        let fearPoints = 0;
+
+        // Função para rolar um dado FATE
+        function rollFateDie() {
+            const roll = Math.random();
+            if (roll < 1/3) return '+'; // 33.33% chance de +
+            if (roll < 2/3) return '-'; // 33.33% chance de -
+            return '0'; // 33.33% chance de 0
+        }
+
+        // Função para converter símbolo para valor numérico
+        function dieToValue(die) {
+            if (die === '+') return 1;
+            if (die === '-') return -1;
+            return 0;
+        }
+
+        // Função para calcular pontos de Esperança e Medo
+        function calculateHopeAndFear(results) {
+            const plusCount = results.filter(r => r === '+').length;
+            const minusCount = results.filter(r => r === '-').length;
+            
+            if (plusCount > minusCount) {
+                // Mais símbolos "+": Jogador ganha 1 Esperança
+                hopePoints += 1;
+                return {
+                    hope: 1,
+                    fear: 0,
+                    message: "✨ Mais símbolos '+'! Jogador ganhou 1 ponto de ESPERANÇA!"
+                };
+            } else if (minusCount > plusCount) {
+                // Mais símbolos "-": Narrador ganha 1 Medo
+                fearPoints += 1;
+                return {
+                    hope: 0,
+                    fear: 1,
+                    message: "😱 Mais símbolos '-'! Narrador ganhou 1 ponto de MEDO!"
+                };
+            } else {
+                // Empate: Jogador ganha 1 Esperança e Narrador ganha 1 Medo
+                hopePoints += 1;
+                fearPoints += 1;
+                return {
+                    hope: 1,
+                    fear: 1,
+                    message: "⚖️ Empate! Jogador ganhou 1 ESPERANÇA e Narrador ganhou 1 MEDO!"
+                };
+            }
+        }
+
+        // Função para atualizar a aparência dos dados
+        function updateDiceDisplay(results) {
+            results.forEach((result, index) => {
+                const die = diceElements[index];
+                die.classList.remove('plus', 'minus', 'blank', 'rolling');
+                
+                // Forçar reflow para reiniciar a animação
+                void die.offsetWidth;
+                
+                die.classList.add('rolling');
+                
+                if (result === '+') {
+                    die.classList.add('plus');
+                    die.textContent = '+';
+                } else if (result === '-') {
+                    die.classList.add('minus');
+                    die.textContent = '−';
+                } else {
+                    die.classList.add('blank');
+                    die.textContent = '0';
+                }
+                
+                // Remover a classe de animação após ela terminar
+                setTimeout(() => {
+                    die.classList.remove('rolling');
+                }, 500);
+            });
+        }
+
+        // Função para obter o rótulo e descrição do resultado
+        function getResultLabelAndDescription(total) {
+            if (total <= -4) return { label: '💀 Péssimo', description: 'Um fracasso espetacular! As coisas não poderiam estar piores.' };
+            if (total === -3) return { label: '😫 Muito Ruim', description: 'Um resultado terrível, mas talvez haja uma pequena esperança.' };
+            if (total === -2) return { label: '😕 Ruim', description: 'Não foi bom, mas poderia ser pior...' };
+            if (total === -1) return { label: '😐 Medíocre', description: 'Ligeiramente abaixo do esperado.' };
+            if (total === 0) return { label: '⚪ Neutro', description: 'Um resultado mediano, nem bom nem ruim.' };
+            if (total === 1) return { label: '👍 Mediano', description: 'Um pouco acima da média. Nada excepcional.' };
+            if (total === 2) return { label: '👌 Bom', description: 'Um resultado sólido e competente.' };
+            if (total === 3) return { label: '🌟 Ótimo', description: 'Muito bom! Você se saiu muito bem.' };
+            if (total === 4) return { label: '💫 Excelente', description: 'Fantástico! Um resultado impressionante.' };
+            if (total === 5) return { label: '✨ Fantástico', description: 'Simplesmente brilhante! Você superou as expectativas.' };
+            if (total === 6) return { label: '⚡ Épico', description: 'Lendário! Sua ação será lembrada por muito tempo.' };
+            if (total === 7) return { label: '👑 Lendário', description: 'Inacreditável! Você alcançou a perfeição.' };
+            if (total >= 8) return { label: '🚀 Divino', description: 'Os deuses se curvam diante de sua magnificência!' };
+            return { label: '❓ Desconhecido', description: 'Um resultado além da compreensão mortal.' };
+        }
+
+        // Função principal para rolar os dados
+        function rollDice(includeBonus = true) {
+            // Adicionar animação de loading
+            resultFinal.textContent = '...';
+            
+            setTimeout(() => {
+                // Rolar os 4 dados
+                const results = [];
+                for (let i = 0; i < 4; i++) {
+                    results.push(rollFateDie());
+                }
+                
+                // Calcular o valor dos dados
+                const diceTotal = results.reduce((sum, die) => sum + dieToValue(die), 0);
+                
+                // Calcular pontos de Esperança e Medo
+                const hopeFearResult = calculateHopeAndFear(results);
+                
+                // Pegar o bônus da skill
+                const skillBonus = parseInt(skillBonusInput.value) || 0;
+                
+                // Calcular resultado final
+                const finalTotal = includeBonus ? diceTotal + skillBonus : diceTotal;
+                
+                // Pegar o nome da skill
+                const skillName = skillNameInput.value.trim() || 'Perícia';
+                
+                // Atualizar a exibição dos dados
+                updateDiceDisplay(results);
+                
+                // Atualizar os valores de Esperança e Medo
+                hopeValue.textContent = hopePoints;
+                fearValue.textContent = fearPoints;
+                
+                // Atualizar o texto dos resultados
+                const resultsText = results.join(' ');
+                let diceResultText = `🎲 Dados: ${resultsText} = ${diceTotal}`;
+                
+                if (includeBonus) {
+                    diceResultText += ` + Bônus (${skillName}: +${skillBonus}) = ${finalTotal > 0 ? '+' : ''}${finalTotal}`;
+                } else {
+                    diceResultText += ` = ${finalTotal > 0 ? '+' : ''}${finalTotal}`;
+                }
+                
+                resultDice.textContent = diceResultText;
+                resultFinal.textContent = finalTotal > 0 ? `+${finalTotal}` : finalTotal;
+                
+                // Atualizar mensagem de Esperança/Medo
+                hopeMessage.textContent = hopeFearResult.message;
+                hopeMessage.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                hopeMessage.style.padding = '10px';
+                hopeMessage.style.borderRadius = '5px';
+                hopeMessage.style.marginTop = '15px';
+                
+                // Atualizar rótulo e descrição
+                const resultInfo = getResultLabelAndDescription(finalTotal);
+                resultLabel.textContent = resultInfo.label;
+                resultDescription.textContent = resultInfo.description;
+                
+                // Mudar a cor do resultado baseado no valor
+                if (finalTotal >= 3) {
+                    resultFinal.style.color = '#48c774';
+                } else if (finalTotal <= -2) {
+                    resultFinal.style.color = '#f14668';
+                } else {
+                    resultFinal.style.color = 'white';
+                }
+            }, 100);
+        }
+
+        // Função para resetar os dados
+        function resetDice() {
+            // Resetar a aparência dos dados
+            diceElements.forEach(die => {
+                die.classList.remove('plus', 'minus', 'rolling');
+                die.classList.add('blank');
+                die.textContent = '0';
+            });
+            
+            // Resetar os resultados
+            resultDice.textContent = 'Clique em Rolar para começar!';
+            resultFinal.textContent = '0';
+            resultLabel.textContent = '⚪ Neutro';
+            resultDescription.textContent = 'Aguardando sua rolagem...';
+            resultFinal.style.color = 'white';
+            hopeMessage.textContent = '';
+            
+            // Resetar inputs para valores padrão
+            skillNameInput.value = 'Perícia';
+            skillBonusInput.value = '0';
+            
+            // Resetar pontos de Esperança e Medo
+            hopePoints = 0;
+            fearPoints = 0;
+            hopeValue.textContent = '0';
+            fearValue.textContent = '0';
+        }
+
+        // Event Listeners
+        rollBtn.addEventListener('click', () => rollDice(false));
+        rollWithBonusBtn.addEventListener('click', () => rollDice(true));
+        resetBtn.addEventListener('click', resetDice);
+
+        // Permitir Enter no input de bônus para rolar
+        skillBonusInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                rollDice(true);
+            }
+        });
+
+        // Validação do input de bônus
+        skillBonusInput.addEventListener('change', function() {
+            let value = parseInt(this.value);
+            if (isNaN(value)) {
+                this.value = 0;
+            } else if (value < -5) {
+                this.value = -5;
+            } else if (value > 10) {
+                this.value = 10;
+            }
+        });
+    </script>
+</body>
+</html>
