@@ -1,4 +1,4 @@
-const CACHE_NAME = "fateDice-v5";
+const CACHE_NAME = "fateDice-v6";
 
 const FILES_TO_CACHE = [
   "./",
