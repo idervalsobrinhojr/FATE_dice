@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="manifest" href="manifest.json">
+    
     <link rel="icon" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
     <meta charset="UTF-8">
@@ -465,6 +467,13 @@
         }
     </style>
 </head>
+    
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+    
 <body>
     <div class="container">
         <h1>🎲 <span>Rolador FATE</span> 🎲</h1>
