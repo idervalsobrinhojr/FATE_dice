@@ -9,462 +9,577 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Dados FATE - com Esperança & Medo</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:
+        radial-gradient(circle at 50% 0%, #34312b 0%, #1c1b19 45%, #111110 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    color: #d6d0c4;
+}
 
-        .container {
-            background-color: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 24px 20px;
-            max-width: 650px;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
+.container {
+    background:
+        linear-gradient(145deg, #292724 0%, #201f1d 100%);
+    border: 1px solid #4a453d;
+    border-radius: 14px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    padding: 24px 20px;
+    max-width: 650px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 24px;
-            font-size: 1.8rem;
-            font-weight: 600;
-            word-break: break-word;
-        }
+/* =========================
+   TÍTULO
+   ========================= */
 
-        h1 span {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+h1 {
+    color: #d8d0c1;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    word-break: break-word;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
 
-        .skill-section {
-            background-color: #f8f9fa;
-            border-radius: 16px;
-            padding: 18px 16px;
-            margin-bottom: 20px;
-        }
+h1 span {
+    color: #b69a63;
+    background: none;
+    -webkit-text-fill-color: #b69a63;
+}
 
-        .skill-label {
-            display: block;
-            margin-bottom: 12px;
-            color: #555;
-            font-weight: 600;
-            font-size: 1rem;
-        }
+/* =========================
+   PERÍCIA
+   ========================= */
 
-        .skill-input-container {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+.skill-section {
+    background: #1b1a18;
+    border: 1px solid #403c35;
+    border-radius: 10px;
+    padding: 18px 16px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.45);
+}
 
-        .skill-input {
-            flex: 2;
-            min-width: 160px;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
+.skill-label {
+    display: block;
+    margin-bottom: 12px;
+    color: #b8b0a2;
+    font-weight: 600;
+    font-size: 1rem;
+}
 
-        .skill-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+.skill-input-container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        .skill-value {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            padding: 4px 12px 4px 8px;
-            border-radius: 40px;
-            border: 2px solid #e0e0e0;
-        }
+.skill-input {
+    flex: 2;
+    min-width: 160px;
+    padding: 12px 16px;
+    border: 1px solid #504b42;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: #282622;
+    color: #ddd6c8;
+}
 
-        .skill-value label {
-            font-weight: 700;
-            color: #667eea;
-            font-size: 1.2rem;
-        }
+.skill-input::placeholder {
+    color: #777269;
+}
 
-        .skill-bonus {
-            width: 70px;
-            padding: 10px 8px;
-            border: none;
-            font-size: 1rem;
-            text-align: center;
-            font-weight: 600;
-            background: transparent;
-            font-family: inherit;
-        }
+.skill-input:focus {
+    outline: none;
+    border-color: #9b8050;
+    box-shadow: 0 0 0 3px rgba(155, 128, 80, 0.12);
+}
 
-        .skill-bonus:focus {
-            outline: none;
-        }
+.skill-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #282622;
+    padding: 4px 12px 4px 8px;
+    border-radius: 8px;
+    border: 1px solid #504b42;
+}
 
-        /* Remover setas do input number em navegadores */
-        .skill-bonus::-webkit-inner-spin-button, 
-        .skill-bonus::-webkit-outer-spin-button {
-            opacity: 0.5;
-        }
+.skill-value label {
+    font-weight: 700;
+    color: #b69a63;
+    font-size: 1.2rem;
+}
 
-        .dice-section {
-            background-color: #f8f9fa;
-            border-radius: 16px;
-            padding: 20px 16px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.skill-bonus {
+    width: 70px;
+    padding: 10px 8px;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    background: transparent;
+    color: #ddd6c8;
+    font-family: inherit;
+}
 
-        .dice-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0 30px;
-            flex-wrap: wrap;
-        }
+.skill-bonus:focus {
+    outline: none;
+}
 
-        .die {
-            width: 65px;
-            height: 65px;
-            background: white;
-            border-radius: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            font-weight: bold;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-            transition: transform 0.2s ease;
-            flex-shrink: 0;
-        }
+.skill-bonus::-webkit-inner-spin-button,
+.skill-bonus::-webkit-outer-spin-button {
+    opacity: 0.4;
+}
 
-        .die.plus {
-            background: linear-gradient(135deg, #48c774, #00d1b2);
-            color: white;
-        }
+/* =========================
+   DADOS
+   ========================= */
 
-        .die.minus {
-            background: linear-gradient(135deg, #f14668, #ff3860);
-            color: white;
-        }
+.dice-section {
+    background: #1b1a18;
+    border: 1px solid #403c35;
+    border-radius: 10px;
+    padding: 20px 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.45);
+}
 
-        .die.blank {
-            background: linear-gradient(135deg, #b0b0b0, #7a7a7a);
-            color: white;
-        }
+.dice-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 30px;
+    flex-wrap: wrap;
+}
 
-        .die.rolling {
-            animation: roll 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+.die {
+    width: 65px;
+    height: 65px;
+    background: #34312c;
+    border: 1px solid #575148;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #aaa398;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
 
-        @keyframes roll {
-            0% { transform: rotate(0deg) scale(1); opacity: 0.8; }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); opacity: 1; }
-        }
+.die.plus {
+    background: linear-gradient(145deg, #58654b, #394333);
+    border-color: #788467;
+    color: #ddd8c8;
+}
 
-        .button-container {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
+.die.minus {
+    background: linear-gradient(145deg, #713c3d, #49282a);
+    border-color: #875052;
+    color: #e1c8c5;
+}
 
-        .btn {
-            padding: 12px 18px;
-            border: none;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex: 1;
-            min-width: 110px;
-            background-size: 200% auto;
-        }
+.die.blank {
+    background: linear-gradient(145deg, #3b3833, #292724);
+    color: #8d877d;
+}
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
-        }
+.die.rolling {
+    animation: roll 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .btn-primary:active {
-            transform: scale(0.97);
-        }
+@keyframes roll {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
+}
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #48c774, #00d1b2);
-            color: white;
-            box-shadow: 0 4px 12px rgba(72, 199, 116, 0.35);
-        }
+/* =========================
+   BOTÕES
+   ========================= */
 
-        .btn-secondary:active {
-            transform: scale(0.97);
-        }
+.button-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
 
-        .btn-reset {
-            background: linear-gradient(135deg, #f14668, #ff3860);
-            color: white;
-            box-shadow: 0 4px 12px rgba(241, 70, 104, 0.35);
-        }
+.btn {
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex: 1;
+    min-width: 110px;
+    background-size: 200% auto;
+}
 
-        .btn-reset:active {
-            transform: scale(0.97);
-        }
+.btn-primary {
+    background: linear-gradient(145deg, #806c48, #5e4e35);
+    border-color: #9a8357;
+    color: #eee7d8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
-        /* Hover apenas em dispositivos com mouse */
-        @media (hover: hover) {
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
-            }
-            .btn-secondary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(72, 199, 116, 0.5);
-            }
-            .btn-reset:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(241, 70, 104, 0.5);
-            }
-        }
+.btn-primary:active {
+    transform: scale(0.97);
+}
 
-        .result-section {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 20px;
-            padding: 24px 20px;
-            color: white;
-            text-align: center;
-            margin-top: 8px;
-        }
+.btn-secondary {
+    background: linear-gradient(145deg, #59664b, #3e4935);
+    border-color: #71805f;
+    color: #e3e6d9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
-        .result-dice {
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            opacity: 0.9;
-            word-break: break-word;
-            line-height: 1.4;
-        }
+.btn-secondary:active {
+    transform: scale(0.97);
+}
 
-        .result-final {
-            font-size: 2.8rem;
-            font-weight: bold;
-            margin: 10px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-            word-break: break-word;
-        }
+.btn-reset {
+    background: linear-gradient(145deg, #6e3d3e, #4d292b);
+    border-color: #875052;
+    color: #ead8d5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
-        .result-label {
-            font-size: 1.3rem;
-            padding: 8px 20px;
-            border-radius: 40px;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            margin-top: 12px;
-            backdrop-filter: blur(2px);
-        }
+.btn-reset:active {
+    transform: scale(0.97);
+}
 
-        .result-description {
-            font-size: 0.95rem;
-            margin-top: 14px;
-            opacity: 0.95;
-            line-height: 1.4;
-            padding: 0 6px;
-        }
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(145deg, #947c51, #6d5a3c);
+        box-shadow: 0 7px 18px rgba(0, 0, 0, 0.55);
+    }
 
-        .hope-fear-section {
-            background-color: #f8f9fa;
-            border-radius: 20px;
-            padding: 16px 12px;
-            margin: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid #e9ecef;
-            gap: 12px;
-        }
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(145deg, #68775a, #48553d);
+        box-shadow: 0 7px 18px rgba(0, 0, 0, 0.55);
+    }
 
-        .hope-box, .fear-box {
-            text-align: center;
-            padding: 12px 8px;
-            border-radius: 20px;
-            font-weight: bold;
-            flex: 1;
-            min-width: 100px;
-        }
+    .btn-reset:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(145deg, #7e4749, #582f31);
+        box-shadow: 0 7px 18px rgba(0, 0, 0, 0.55);
+    }
+}
 
-        .hope-box {
-            background: linear-gradient(135deg, #48c774, #00d1b2);
-            color: white;
-        }
+/* =========================
+   RESULTADO
+   ========================= */
 
-        .fear-box {
-            background: linear-gradient(135deg, #f14668, #ff3860);
-            color: white;
-        }
+.result-section {
+    background:
+        radial-gradient(circle at 50% 0%, #494137 0%, #2c2925 55%, #211f1d 100%);
+    border: 1px solid #665b4a;
+    border-radius: 12px;
+    padding: 24px 20px;
+    color: #ded7c9;
+    text-align: center;
+    margin-top: 8px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 8px 25px rgba(0,0,0,0.35);
+}
 
-        .hope-value, .fear-value {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-top: 6px;
-            line-height: 1.2;
-        }
+.result-dice {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: #aaa296;
+    word-break: break-word;
+    line-height: 1.4;
+}
 
-        .hope-label, .fear-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
+.result-final {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #d4c29d;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.65);
+    word-break: break-word;
+}
 
-        .separator-icon {
-            font-size: 1.8rem;
-            color: #adb5bd;
-            flex-shrink: 0;
-        }
+.result-label {
+    font-size: 1.3rem;
+    padding: 8px 20px;
+    border-radius: 6px;
+    display: inline-block;
+    background: rgba(20, 19, 17, 0.55);
+    border: 1px solid #655b4c;
+    color: #d8cfbd;
+    margin-top: 12px;
+}
 
-        .hope-message {
-            margin-top: 16px;
-            padding: 10px 12px;
-            border-radius: 40px;
-            font-weight: 600;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.18);
-            font-size: 0.85rem;
-            backdrop-filter: blur(2px);
-            word-break: break-word;
-        }
+.result-description {
+    font-size: 0.95rem;
+    margin-top: 14px;
+    color: #bdb5a7;
+    line-height: 1.4;
+    padding: 0 6px;
+}
 
-        .footer {
-            text-align: center;
-            margin-top: 24px;
-            color: #888;
-            font-size: 0.7rem;
-            line-height: 1.4;
-            padding: 0 6px;
-        }
+.hope-message {
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(35, 35, 29, 0.6);
+    border: 1px solid #595548;
+    color: #c8c2b4;
+    font-size: 0.85rem;
+    word-break: break-word;
+}
 
-        /* Responsividade refinada para telas muito pequenas */
-        @media (max-width: 550px) {
-            body {
-                padding: 12px;
-            }
-            .container {
-                padding: 18px 14px;
-            }
-            h1 {
-                font-size: 1.5rem;
-                margin-bottom: 18px;
-            }
-            .die {
-                width: 55px;
-                height: 55px;
-                font-size: 1.7rem;
-                border-radius: 14px;
-            }
-            .dice-container {
-                gap: 10px;
-            }
-            .btn {
-                padding: 10px 12px;
-                font-size: 0.8rem;
-                min-width: 95px;
-            }
-            .skill-input {
-                padding: 10px 12px;
-                font-size: 0.9rem;
-            }
-            .skill-value {
-                padding: 2px 8px 2px 6px;
-            }
-            .skill-bonus {
-                width: 60px;
-                font-size: 0.9rem;
-            }
-            .result-final {
-                font-size: 2.2rem;
-            }
-            .result-label {
-                font-size: 1.1rem;
-                padding: 5px 16px;
-            }
-            .hope-value, .fear-value {
-                font-size: 1.6rem;
-            }
-            .hope-box, .fear-box {
-                padding: 8px 6px;
-            }
-            .separator-icon {
-                font-size: 1.4rem;
-            }
-        }
+/* =========================
+   ESPERANÇA / MEDO
+   ========================= */
 
-        @media (max-width: 420px) {
-            .skill-input-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .skill-value {
-                justify-content: center;
-                width: fit-content;
-                margin-top: 6px;
-            }
-            .dice-container {
-                gap: 8px;
-            }
-            .die {
-                width: 48px;
-                height: 48px;
-                font-size: 1.5rem;
-            }
-            .button-container {
-                gap: 8px;
-            }
-            .btn {
-                font-size: 0.75rem;
-                padding: 8px 6px;
-            }
-            .hope-fear-section {
-                padding: 12px 8px;
-            }
-            .hope-value, .fear-value {
-                font-size: 1.4rem;
-            }
-        }
+.hope-fear-section {
+    background: #171614;
+    border-radius: 10px;
+    padding: 16px 12px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #403c35;
+    gap: 12px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.45);
+}
 
-        /* Melhorias de toque */
-        button, .btn, .skill-bonus, .skill-input {
-            touch-action: manipulation;
-        }
+.hope-box,
+.fear-box {
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 7px;
+    font-weight: bold;
+    flex: 1;
+    min-width: 100px;
+}
 
-        /* Evitar overflow em textos longos */
-        .skill-name, .result-dice, .result-description, .hope-message {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
+.hope-box {
+    background: linear-gradient(145deg, #536049, #394231);
+    border: 1px solid #6c795d;
+    color: #d8decf;
+}
+
+.fear-box {
+    background: linear-gradient(145deg, #713b3d, #472629);
+    border: 1px solid #865052;
+    color: #e0cecb;
+}
+
+.hope-value,
+.fear-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 6px;
+    line-height: 1.2;
+}
+
+.hope-label,
+.fear-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.separator-icon {
+    font-size: 1.8rem;
+    color: #8e826d;
+    flex-shrink: 0;
+}
+
+/* =========================
+   RODAPÉ
+   ========================= */
+
+.footer {
+    text-align: center;
+    margin-top: 24px;
+    color: #716c64;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    padding: 0 6px;
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+
+@media (max-width: 550px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 18px 14px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+    }
+
+    .die {
+        width: 55px;
+        height: 55px;
+        font-size: 1.7rem;
+        border-radius: 8px;
+    }
+
+    .dice-container {
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+        min-width: 95px;
+    }
+
+    .skill-input {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .skill-value {
+        padding: 2px 8px 2px 6px;
+    }
+
+    .skill-bonus {
+        width: 60px;
+        font-size: 0.9rem;
+    }
+
+    .result-final {
+        font-size: 2.2rem;
+    }
+
+    .result-label {
+        font-size: 1.1rem;
+        padding: 5px 16px;
+    }
+
+    .hope-value,
+    .fear-value {
+        font-size: 1.6rem;
+    }
+
+    .hope-box,
+    .fear-box {
+        padding: 8px 6px;
+    }
+
+    .separator-icon {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .skill-input-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .skill-value {
+        justify-content: center;
+        width: fit-content;
+        margin-top: 6px;
+    }
+
+    .dice-container {
+        gap: 8px;
+    }
+
+    .die {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+
+    .button-container {
+        gap: 8px;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 8px 6px;
+    }
+
+    .hope-fear-section {
+        padding: 12px 8px;
+    }
+
+    .hope-value,
+    .fear-value {
+        font-size: 1.4rem;
+    }
+}
+
+/* =========================
+   TOQUE / INPUTS
+   ========================= */
+
+button,
+.btn,
+.skill-bonus,
+.skill-input {
+    touch-action: manipulation;
+}
+
+.skill-name,
+.result-dice,
+.result-description,
+.hope-message {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+```
     </style>
 </head>
     
